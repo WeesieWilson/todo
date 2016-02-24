@@ -14,7 +14,7 @@ input {
   border: none;
   width: 74%; }
 
-.hello {
+.submit {
   background-color: #E5D6D6;
   border: none;
   color: white;
@@ -49,6 +49,12 @@ input {
     border-radius: 5%; }
     .todo .delete:hover {
       border: 2px solid #F6EFEF; }
+
+.line {
+  background-image: url("checked-mark.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  border: none; }
 
 .clear {
   border: none;

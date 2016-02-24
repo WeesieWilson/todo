@@ -1,13 +1,16 @@
 
 
 //EMPTY todo ARRAY
-var toDo = []
+var toDo = [
+]
 
 //GRABBING THE todo IN THE INPUT ON THE DOM
+//THIS IS AN OBJECT
 function getTodoFromDom() {
   var post = $('input[name="todo"]').val();
   return {
     post: post,
+    complete: false,
   }
 }
 
@@ -17,6 +20,7 @@ function addTodo(newTodo) {
 }
 
 //GRABBING THE NEW ARRAY WITH NEW todo IN IT
+//THIS IS AN ARRAY
 function getTodo() {
   return toDo;
 }
@@ -46,13 +50,16 @@ function numberChange(array, $target){
 var number= array.length;
 $target.html(number)};
 
-//LINE THROUGH COMPLETED ITEM
-// function lineThrough($target){
-//   $target.siblings("p").css("text-decoration", "none");
-// };
 
+//STYLING IN JAVASCIRPT
 function cssStyle($target, attr, property){
   $target.css(attr, property)};
+
+//FINISH PRODUCT
+function finishProduct(){
+  addAllTodos(getTodo());
+  numberChange(getTodo(), $('span'));
+}
 
 
 
@@ -61,32 +68,87 @@ $(document).ready(function () {
   addAllTodos(toDo);
 
 
-  $('.hello').on('click', function (event) {
+//CLICKING SUBMIT AND MAKING todo APPEND TO PAGE
+  $('.submit').on('click', function (event) {
     event.preventDefault();
     var newTodo = getTodoFromDom();
       addTodo(newTodo);
-      addAllTodos(getTodo());
       $('input[name="todo"]').val('');
-      numberChange(getTodo(), $('span'))
+      finishProduct();
   });
 
-  $('body').on('click', '.complete', function (event) {
-    cssStyle($(this),'background', 'url(checked-mark.png) no-repeat');
-    cssStyle($(this),'background-size', '100%');
-    cssStyle($(this),'border', 'none');
-    // $(this).css("background", "url(checked-mark.png) no-repeat");
-    // $(this).css("background-size", "100%");
-    // $(this).css("border", "none");
+//CLICKING THE COMPLETE BUTTON CHANGING FALSE TO TRUE
+    $('body').on('click', '.complete', function (event) {
+      var indexOfOurTodo = $(this).parent().data('idx');
+      if(!toDo[indexOfOurTodo].complete) {
+        $(this).addClass('line');
+        $(this).siblings('p').css('text-decoration', 'line-through');
+        toDo[indexOfOurTodo].complete = !toDo[indexOfOurTodo].complete;
+      } else {
+        $(this).removeClass('line');
+        $(this).siblings('p').css('text-decoration', 'none');
 
-    var line = $(this).siblings("p");
-    line.css("text-decoration", "line-through");
-  });
+      }
+      var completed = _.where(toDo,{complete: false});
+      numberChange(completed, $('span'));
+    });
 
+//CLICK DELETE AND DELETE todo AND CHANGE NUMBER
   $('.todoContainer').on('click', '.delete', function (event) {
     var idx = $(this).closest('div').data('idx');
     deleteTodo(idx);
-    addAllTodos(getTodo());
-    numberChange(getTodo(), $('span'))
+    finishProduct();
   });
+
+//CLICK CLEAR ALL AND CLEARS COMPLETED
+  $('footer').on('click', '.clear', function (event) {
+    var completed = _.where(toDo,{complete: true});
+    completed.forEach(function(el) {
+      deleteTodo(toDo.indexOf(el));
+    });
+    finishProduct();
+  });
+
+$('footer').on('click', '.active', function (event) {
+event.preventDefault();
+  var completed = _.where(toDo,{complete: false});
+  function addAllTodos(arr) {
+    $('.todoContainer').html('');
+    _.each(completed, function (el, idx) {
+      el.idx = idx;
+      addTodoToDom(el, templates.todo, $('.todoContainer'));
+    })
+  }
+  addAllTodos(completed);
+
+
+
+});
+$('footer').on('click', '.all', function (event) {
+
+  event.preventDefault();
+
+    finishProduct();
+
+
+
+});
+$('footer').on('click', '.completed', function (event) {
+event.preventDefault();
+  var completed = _.where(toDo,{complete: true});
+  function addAllTodos(arr) {
+    $('.todoContainer').html('');
+    _.each(completed, function (el, idx) {
+      el.idx = idx;
+      addTodoToDom(el, templates.todo, $('.todoContainer'));
+    })
+  }
+
+  addAllTodos(completed);
+
+
+
+});
+
 
 });
