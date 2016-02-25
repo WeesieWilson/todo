@@ -2,20 +2,27 @@ footer{
   background-color: white;
   display: flex;
   justify-content: space-between;
-  p{span{}}
   div{
     align-self: center;
     button{
-      color: #9E9E9E;
+      color: $darkGrey;
       border: none;
       background-color: white;
       &:hover{
-        border: 1px solid #F6EFEF;
+        border: 1px solid $lightRed;
       }
     }
   }
   button{
     font-family: $cool;
-    color: #9E9E9E;
+    color: $darkGrey;
   }
+}
+.clear{
+  border: none;
+  background-color: white;
+  border-radius: 5%;
+}
+.clear:hover{
+  border: 1px solid $lightRed;
 }

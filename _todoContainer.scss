@@ -1,7 +1,7 @@
 body{
-  background-color: #F5F5F5;
+  background-color: $backgroundGrey;
   font-family: $cool;
-  color: #E5D6D6;
+  color: $lightRed;
   display: flex;
   justify-content: space-around;;
   h1{
@@ -10,53 +10,49 @@ body{
 }
 input{
   font-size: 17px;
-padding: 2%;
-border-radius: 1%;
-border: none;
-width: 74%;
+  padding: 2%;
+  border-radius: 1%;
+  border: none;
+  width: 74%;
 }
 .submit{
-  background-color: #E5D6D6;
-border: none;
-color: white;
-width: 20%;
+  background-color: $lightRed;
+  border: none;
+  color: white;
+  width: 20%;
 }
-
 .box{
   align-self: flex-end;
-
   width: 60%;
 }
 
+// STYLING FOR todo THAT USER ADDS
 .todo{
   background-color: white;
   display: flex;
   justify-content: space-around;
-  border-bottom: 2px solid #F5F5F5;
+  border-bottom: 2px solid $lightGrey;
   padding: 2%;
   button{
     padding-right: 1%;
     background-color: white;
-    border-color-left: red;
-
     border: none;
-    border: solid 3px #F5F5F5;
+    border: solid 3px $lightGrey;
     border-radius: 100%;
     height: 47px;
     width: 6%;
-
   }
   p{
     flex: 2;
     margin-left: 3%;
   }
   .delete{
-    color: #9E9E9E;
+    color: $darkGrey;
     background-color: white;
     border: none;
     border-radius: 5%;
     &:hover{
-      border: 2px solid #F6EFEF;
+      border: 2px solid $lightRed;
     }
   }
 }
@@ -64,15 +60,4 @@ width: 20%;
   background-image: url('checked-mark.png');
   background-size: 100%;
   background-repeat: no-repeat;
-  border: none;
-
-}
-
-.clear{
-  border: none;
-  background-color: white;
-  border-radius: 5%;
-}
-.clear:hover{
-  border: 1px solid #F6EFEF;
 }
